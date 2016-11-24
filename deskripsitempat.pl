@@ -90,10 +90,10 @@ deskripsi(markas_teroris) :-
 	write('menjadi kosong sekarang. Di sebelah timur ada Kolong Jembatan.'), nl.
 
 deskripsi(markas_teroris) :-
-	at(senter, in_hand),
+	at(senter, in_hand), !,
 	write('Setelah menyalakan sentermu kamu melihat sekelompok orang sedang melakukan'), nl,
 	write('sebuah ritual. Sialnya, mereka mengetahui keberadaanmu! Tapi, apakah mereka'), nl,
-	write('orang baik atau jahat? Bicaralah pada seseorang dari mereka yang bernama Teroris.'), nl,
+	write('orang baik atau jahat? Bicaralah pada seseorang dari mereka yang bernama Yalchi.'), nl,
 	write('Di sebelah timur ada Kolong Jembatan.'), nl.
 
 deskripsi(markas_teroris) :-
@@ -103,4 +103,121 @@ deskripsi(markas_teroris) :-
 	write('CRASSSSSS!! Darahmu bertebaran! CRASSSSSS! Lagi! CRASSSSSS! '), nl,
 	mati.
 
+deskripsi(perempatan_kuy) :-
+	write('Perempatan paling ramai di kota. Pusat dari segala aktivitas.'), nl,
+	write('Bekerja disini mungkin melelahkan, tapi upah yang didapat pun'), nl,
+	write('banyak. Di sebelah barat ada Kebun Binatang, di sebelah utara'), nl,
+	write('ada Badan Resor Kriminal, di sebelah timur ada Jalan Kesepian'), nl,
+	write(', dan di sebelah selatan ada Gang Depan. Oh ternyata rumahmu'), nl,
+	write('ada di sebelah selatan dari dekat sini!'), nl.
+
+deskripsi(kebun_binatang) :-
+	jinak(beruang), !,
+	write('Suasana di kebun binatan sudah kondusif sekarang, setiap orang'), nl,
+	write('senang rekreasi disini. Tidak ada lagi beruang yang mengamuk. Ini'), nl,
+	write('semua karena jasamu!. Di sebelah barat ada Kandang Beruang, dan di'), nl,
+	write('sebelah timur ada Perempatan Kuy.'), nl.
+
+deskripsi(kebun_binatang) :-
+	write('Tempat rekreasi masyarakat kota. Tetapi sepertinya orang-orang'), nl,
+	write('tidak terlihat senang disini, apa yang terjadi? Mungkin kamu'), nl,
+	write('bisa bertanya pada zookeeper di pos sebelah sana. Di sebelah'), nl,
+	write('timur ada Perempatan Kuy.'), nl.
+
+deskripsi(kandang_beruang) :-
+	jinak(beruang), !,
+	write('Terlihat beruang yang sangat unyu sedang makan. Pengunjung sangat'), nl,
+	write('senang melihatnya. Di sebelah timur ada Kebun Binatang.'), nl.
+
+deskripsi(kandang_beruang) :-
+	write('GROAAAAA! Seekor beruang sedang mengamuk dan menakuti pengunjung!'), nl,
+	write('Ayo lakukan sesuatu sebelum situasi semakin buruk!'), nl.
+
+deskripsi(gang_depan) :-
+	tertangkap(preman), !,
+	write('Terlihat anak-anak sedang bermain dengan senangnya. Keresahan mereka'), nl,
+	write('telah hilang seiring tertangkapnya preman gang. Ini semua karena mu!'), nl,
+	write('Warga disini amat bangga punya anggota sepertimu. Di sebelah selatan ada'), nl,
+	write('Rumah, dan di sebelah utara ada Perempatan Kuy.'), nl.
+
+deskripsi(gang_depan) :-
+	write('Ketika sampai di gang depan, kamu melihat suasana sepi yang aneh.'), nl,
+	write('Orang-orang bersembunyi dibalik pintu rumahnya masing-masing. Tetapi'), nl,
+	write('kamu bisa merasakan bahwa mereka mengintip kedatangan mu dari kedalaman.'), nl,
+	write('Bertanyalah pada warga! Di sebelah selatan ada Rumah, di sebelah Utara'), nl,
+	write('Perempatan Kuy.'), nl.
+
+deskripsi(markas_preman) :-
+	tertangkap(preman), !,
+	write('Setelah preman tertangkap, tempat ini menjadi tempat nongkrong warga.'), nl,
+	write('Di salah satu sudut terpampang foto mu yang sangat heroik sebagai bentuk'),nl,
+	write('apresiasi warga terhadap mu. Di sebelah timur ada Gang Depan.'), nl.
+
+deskripsi(markas_preman) :-
+	write('Ketika kamu sampai, mereka langsung melihatmu dan lari! Jangan diam saja!'), nl,
+	write('Cepat kejar mereka dan gunakan peralatan mu!'), nl.
+
+deskripsi(rumah) :-
+	write('Selamat datang di Rumah! Disini ada banyak barang yang bisa kamu gunakan'), nl,
+	write('mulai dari seragam polisi, baju santai, pisau, clurit, dompet, hingga bunga.'), nl,
+	write('Disini kamu bisa beristirahat untuk mengisi energi mu yang terkuras setelah'), nl,
+	write('bekerja dan memberantas kejahatan. Disini pun ada Satpam yang menjaga keamanan'), nl,
+	write('rumah mu. Sesekali berbicaralah padanya, mungkin ada informasi yang bisa kamu'), nl,
+	write('dapatkan. Di sebelah utara ada Gang Depan.'), nl.
+
+deskripsi(kuburan_hitler) :-
+	mati(hitler), !,
+	write('Wuh, sekarang Hitler sudah tenang di alam Akhirat sana. Tidak ada yang perlu'), nl,
+	write('ditakutkan lagi. Tempat ini sudah berubah menjadi sebuah taman yang indah. Di'), nl,
+	write('sebelah utara ada Rumah.'), nl.
+
+deskripsi(kuburan_hitler) :-
+	write('GHROAAAAA! Tiba-tiba muncul sesosok yang tidak asing dari bawah tanah! Ia'), nl,
+	write('merangkak keluar! Itu adalah HITLER! Bagaimana mungkin?! Ia sudah mati'), nl,
+	write('bertahun-tahun lalu! Tidak ada waktu lagi, gunakan seluruh barang yang'), nl,
+	write('kau punya. Bahkan jika itu sebuah Bazooka, gunakanlah!'), nl.
+
+deskripsi(bareskrim) :-
+	mati(hitler),
+	tertangkap(mafia), !,
+	write('Sudah tidak ada lagi informasi kejahatan di mading. Mungkin kota sudah aman (?)'), nl,
+	write('Di sebelah utara ada Pasar Gelap, dan di sebelah selatan ada Perempatan Kuy'), nl.
+
+deskripsi(bareskrim) :-
+	tertangkap(mafia), !,
+	write('Mafia sudah tertangkap, tetapi kamu melihat ada sebuah info lagi di mading'), nl,
+	write('"WANTED: HITLER ZOMBIE, Mayat hidup dari tokoh Adolf Hitler". Sepertinya ini'), nl,
+	write('tidak masuk akal. Apakah zombie benar-benar ada?. Di sebelah utara ada Pasar Gelap,'), nl,
+	write('dan di sebelah selatan ada Perempatan Kuy.'), nl.
+
+deskripsi(bareskrim) :-
+	write('Tempat ini adalah tempat pengumpulan data mengenai krimalitas di kota.'), nl,
+	write('Kamu melihat ke mading yang ada di pojok ruangan "WANTED: Woo Chin-Whoo,'), nl,
+	write('Buronan Sindikat Mafia penguasa Pasar Gelap.". Sepertinya ini hal yang'), nl,
+	write('menarik. Pasar Gelap ada di sebelah utara. Di sebelah selatan ada Perempatan Kuy.'), nl.
+
+deskripsi(pasar_gelap) :-
+	tertangkap(mafia), !,
+	write('Setelah mafia tertangkap, tempat ini menjadi sebuah pasar baru. Seorang pengusaha'), nl,
+	write('menjadikannya sebuah mal kecil tempat perbelanjaan masyarakat. Tempat ini membaik,'), nl,
+	write('setelah kamu berhasil menangkap sindikat mafia. Berbahagialah! Di sebelah barat ada'), nl,
+	write('Bar markas mafia, di sebelah selatan ada Bareskrim.'), nl.
+
+deskripsi(pasar_gelap) :-
+	write('Kamu tidak pernah membayangkan apa yang ada disini. Senjata, narkoba, bahkan'), nl,
+	write('wanita dan anak-anak dijual disini. Semua ini akibat dari perbuatan sindikat mafia.'), nl,
+	write('Kamu harus segera menangkapnya. Terlihat di sebelah barat ada sebuah bar, banyak'), nl,
+	write('orang berkumpul disana. Tidak ada salahnya kamu kesana, tapi sebaiknya persiapkan'), nl,
+	write('dirimu. Di sebelah selatan ada Bareskrim.'), nl.
+
+deskripsi(markas_mafia) :-
+	tertangkap(mafia), !,
+	write('Sindikat mafia sudah tertangkap. Tempat ini menjadi sebuah cafe baru di sebelah mal.'), nl,
+	write('Di sebelah timur ada Mal Kecil (dulunya pasar gelap).'), nl.
+
+deskripsi(markas_mafia) :-
+	write('Setelah mendekat, mereka langsung mencurigaimu. Mereka menanyai identitas mu,'), nl,
+	write('sayangnya kamu tidak punya identitas selain identitasmu sebagi polisi, dan mereka'), nl,
+	write('sudah mengetahuinya! Mereka langsung mengepungmu! Sigaplah! Gunakan senjatamu atau'), nl,
+	write('kau akan mati di tangan mereka! Tidak ada waktu lagi!'), nl.
 
