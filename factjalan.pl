@@ -2,7 +2,8 @@
 	
 :- dynamic(aku_di/1).
 :- dynamic(uang/1).
-:- retractall(at(_, _)), retractall(aku_di(_)), retractall(alive(_)), retractall(uang(_)).
+:- dynamic(energi/1).
+:- retractall(at(_, _)), retractall(aku_di(_)), retractall(alive(_)), retractall(uang(_)), retractall(energi(_)).
 	
 jalan(mabes_polri,n,ruang_kapolri).
 jalan(mabes_polri,e,jalan_in_aja).
@@ -125,25 +126,48 @@ cekenergi :-
 	energi(X),
 	write('Energi kamu '),write(X),write('%.'). 
 
+energiminimal(Min) :- 
+	energi(X),
+	X > Min.
+
+
 kerja :-
-	aku_di(jalan_in_aja),!,
+	aku_di(jalan_in_aja),
+	energiminimal(50),!,	
 	uang(X),
 	Y is X + 50000,
 	retract(uang(X)),
 	asserta(uang(Y)),
+	energi(A),
+	B is A - 50,
+	retract(energi(A)),
+	asserta(energi(B)),
+	write('Selamat kamu dapat 50.000'),nl,
+	write('uang kamu sekarang '),
+	write(Y).
+
+kerja :-
+	aku_di(jalan_in_aja),!,
+	write('Energi kamu ga cukup').
+
+kerja :-
+	aku_di(perempatan_kuy),
+	energiminimal(50),!,
+	uang(X),
+	Y is X + 50000,
+	retract(uang(X)),
+	asserta(uang(Y)),
+	energi(A),
+	B is A - 50,
+	retract(energi(A)),
+	asserta(energi(B)),
 	write('Selamat kamu dapat 50.000'),nl,
 	write('uang kamu sekarang '),
 	write(Y).
 
 kerja :-
 	aku_di(perempatan_kuy),!,
-	uang(X),
-	Y is X + 50000,
-	retract(uang(X)),
-	asserta(uang(Y)),
-	write('Selamat kamu dapat 50.000'),nl,
-	write('uang kamu sekarang '),
-	write(Y).
+	write('Energi kamu ga cukup').
 
 kerja :- 
 	write('Kamu ga bisa kerja di sini.'),nl,
