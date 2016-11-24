@@ -23,7 +23,7 @@ walk(kantin_kapolri,w,ruang_kapolri).
 	
 walk(markas_copet_pasar,w,jalan_kesepian).
 walk(markas_copet_pasar,n,jalan_in_aja).
-walk(markas_copet_pasar,w,jalan_kesepian).
+walk(markas_copet_pasar,s,pasar).
 	
 walk(jalan_kesepian,w,perempatan_kuy).
 walk(jalan_kesepian,n,mabes_polri).
