@@ -1,7 +1,9 @@
 /* SPIDER -- a sample adventure game, by David Matuszek.
    Consult this file and issue the command "start."  */
 
-:- dynamic at/2, i_am_at/1, alive/1.   /* Needed by SWI-Prolog. */
+:- dynamic (at/2).
+:- dynamic(i_am_at/1).
+:- dynamic(alive/1).   /* Needed by SWI-Prolog. */
 
 /* This defines my current location. */
 
