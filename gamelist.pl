@@ -6,6 +6,8 @@
 :- dynamic(ada_orang_di/2).
 :- dynamic(tertangkap/1).
 :- dynamic(misi/2).
+:- dynamic(ada_di/2).
+:- dynamic(pakai/1).
 :- retractall(ada_di(_, _)), retractall(aku_di(_)), retractall(alive(_)), retractall(uang(_)), retractall(energi(_)), retractall(ada_orang_di(_,_)), retractall(tertangkap(_)), retractall(misi(_,_)).
 	
 jalan(mabes_polri,n,ruang_kapolri).
@@ -90,14 +92,13 @@ ada_orang_di(pedagang,pasar).
 ada_orang_di(zookeeper,kebun_binatang).
 ada_orang_di(ibu_warteg,warteg).
 
-/*ada_di().*/
+ada_di([],di_tas).
+ada_di([rifle,bazoka],gudang_senjata).
+ada_di([nasi_padang,tahu_sumedang],warteg).
+ada_di([borgol,samurai,pisau],rumah).
 
-misi(tangkap_copet,belom).
-misi(lawan_teroris,belom).
-misi(lawan_mafia,belom).
-misi(bunuh_hitler,belom).
-misi(jinakkan_beruang,belom).
-misi(lawan_preman,belom).
+misi([tangkap_copet,lawan_teroris,lawan_mafia,bunuh_hitler,jinakkan_beruang,lawan_preman],belom).
+misi([],complete).
 
 n :-pergi(n).
 
@@ -202,15 +203,9 @@ cekdompet :-
 	write(X),nl.
 
 /*NGOMONG*/
-bicara :-
-	aku_di(X),
-	ada_orang_di(Y,X),!,
-	talk(Y).
-
-bicara :-
-	write('tak ada orang disini').
 
 talk(bos) :-
+	aku_di(ruang_kapolri),
 	misi(X,complete),misi(X,onprogres),!,
 	energi(A),
 	B is A - 65,
@@ -224,8 +219,14 @@ talk(bos) :-
 	write('Bos : Ada beberapa misi yang dapat kamu ambil. silahkan pilih.'),nl,!,
 	tampilkanmisi,!,
 	read(Misi),
-	(energiminimal(65) -> ambilmisi(Misi) ; write('Energi mu tidak cukup untuk menjalankan misi.'),nl)
+	(Misi = 'no' -> write('ok!'), nl ; 
+		(energiminimal(65) -> ambilmisi(Misi) ; 
+			write('Energi mu tidak cukup untuk menjalankan misi.'),nl))
 	.
+
+talk(Person) :-
+	aku_di(Here),
+	write('Tidak ada '),write(Person),write(' di '),write(Here),nl,!.
 
 talk(pegawai) :-
 	aku_di(kantor_pasar),
@@ -249,34 +250,123 @@ talk(pedagang) :-
 /*SPCEIAL SKILL*/
 tangkap :-
 	aku_di(markas_copet_pasar),
-	ada_orang_di(copet,markas_copet_pasar),!,
+	ada_orang_di(copet,markas_copet_pasar),
+	misi(tangkap_copet,onprogres),!,
+
 	retract(ada_orang_di(copet,markas_copet_pasar)),
 	asserta(tertangkap(copet)),
-	misi(X,onprogres),
-	asserta(misi(X,complete)),
+	misi(C,complete),
+	append(C,[tangkap_copet],Lc),
+	retract(misi(C,complete)),
+	asserta(misi(Lc,complete)),
 	write('Selamat kamu berhasil menangkap copet'),nl.
 
 tangkap :-
 	write('tak ada yg bisa kamu tangkap'),nl.
 
+unuse(Item) :-
+	pakai(Inuse),
+	(Item = Inuse -> 
+		ada_di(L,di_tas),
+		append(L,[Item],Lb),
+		retract(pakai(Item)),
+		retract(ada_di(L,di_tas)),
+		asserta(ada_di(Lb,di_tas))
+			
+		; write('Kamu sedang memakai '),write(Inuse),nl),!.
+
+/*SKILL UMUM*/
+
+take(Item) :-
+	aku_di(Tempat),
+	ada_di(L,Tempat),
+	(memberchk(Item,L) -> 
+		ada_di(Ol,di_tas),
+		append(Ol,[Item],Lo),
+		retract(ada_di(Ol,di_tas)),
+		asserta(ada_di(Lo,di_tas)),
+		delete(L,Item,Lb),
+		(Lb = [] -> retract(ada_di(L,Tempat)) ;
+			retract(ada_di(L,Tempat)),
+			asserta(ada_di(Lb,Tempat)) 
+		),!; write(Item),write(' tidak ada di '),write(Tempat),nl,!),
+	open_bag.
+
+look :-
+	aku_di(Tempat),
+	item_in(Tempat),
+	open_bag,!.
+
+item_in(Tempat) :-
+	ada_di(L,Tempat),
+	(L = [] -> write('Tidak ada apa-apa di '),write(Tempat),nl ;
+		write('barang yang ada di '),write(Tempat),nl,
+		tulist(L)),!
+	.
+
+item_in(_) :-
+	aku_di(Tempat),
+	write('Tidak ada apa-apa di '),write(Tempat),nl,!.
+
+open_bag :-
+	ada_di(L,di_tas),
+	(L = [] -> write('Tidak ada apa-apa di tas'),nl ;
+		write('barang yang ada di tas'),nl,
+		tulist(L)),!
+	.
+use(Item) :-
+	pakai(X),
+	write('Kamu sedang memakai '),write(X),nl,!.
+
+use(Item) :- 
+	ada_di(Li,di_tas),
+	(memberchk(Item,Li) -> 
+		delete(Li,Item,Lb),
+		retract(ada_di(Li,di_tas)),
+		asserta(ada_di(Lb,di_tas)),
+		asserta(pakai(Item)) ;
+
+		write(Item),write(' tidak ada di tas'),nl
+		),!.
+
+drop(Item) :-
+	aku_di(Tempat),
+	ada_di(Li,di_tas),
+	(memberchk(Item,Li) ->
+		(ada_di(Lbr,Tempat) ->
+			append(Lbr,[Item],Lbaru),
+			retract(ada_di(Lbr,Tempat)),
+			asserta(ada_di(Lbaru,Tempat)),
+			delete(Li,Item,Ln),
+			retract(ada_di(Li,di_tas)),
+			asserta(ada_di(Ln,di_tas)) ;
+
+			append([],[Item],Lbaru),
+			asserta(ada_di(Lbaru,Tempat)),
+			delete(Li,Item,Ln),
+			retract(ada_di(Li,di_tas)),
+			asserta(ada_di(Ln,di_tas))
+
+			);
+
+		write(Item),write(' tidak ada di tas'),nl
+		),!.
+
 /*MISI*/
 tampilkanmisi :-
-	misi(X,belom),
-	write('> '),write(X),nl,fail.
-
-tampilkanmisi :-
-	nl.
-
-ambilmisi(no):-
-	write('Ok!'),!.
+	misi(L,belom),
+	tulist(L).
 
 ambilmisi(X) :-
 	(misi(Y,onprogres) -> write('Kamu sedang dalam misi '),write(Y),nl ; 
 	cekmisi(X)).
 
 cekmisi(X) :-
-	misi(X,belom),!,
-	retract(misi(X,belom)),
+	misi(L,belom),
+	memberchk(X,L),!,
+	delete(L,X,Lb),
+	retract(misi(L,belom)),
+	asserta(misi(Lb,belom)),
 	asserta(misi(X,onprogres)),
 	write('Kamu telah mengambil misi '),write(X).
 
@@ -285,7 +375,16 @@ cekmisi(_) :-
 
 misiku :-
 	misi(X,onprogres),
-	write(X).
+	write(X),nl.
+
+/*LST*/
+tulist([]) :-
+	!.
+
+tulist([A|B]) :-
+	write(' > '),write(A),nl,
+	tulist(B).
+
 
 /*Deskripsi dari setiap tempat, tergantung dari kondisinya */
 
