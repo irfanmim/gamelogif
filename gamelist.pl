@@ -5,11 +5,20 @@
 :- dynamic(energi/1).
 :- dynamic(ada_orang_di/2).
 :- dynamic(tertangkap/1).
+:- dynamic(mati/1).
 :- dynamic(misi/2).
 :- dynamic(ada_di/2).
 :- dynamic(pakai/1).
+:- dynamic(player/1).
+:- dynamic(playerlist/1).
 :- retractall(ada_di(_, _)), retractall(aku_di(_)), retractall(alive(_)), retractall(uang(_)), retractall(energi(_)), retractall(ada_orang_di(_,_)), retractall(tertangkap(_)), retractall(misi(_,_)).
 	
+/*PLAYER STAT*/	
+player(admin).
+aku_di(mabes_polri).
+uang(100000).
+energi(100).
+
 jalan(mabes_polri,n,ruang_kapolri).
 jalan(mabes_polri,e,jalan_in_aja).
 jalan(mabes_polri,s,jalan_kesepian).
@@ -81,22 +90,23 @@ jalan(kebun_binatang,w,kandang_beruang).
 	
 jalan(kandang_beruang,e,kebun_binatang).
 
-aku_di(mabes_polri).
-uang(100000).
-energi(100).
-
+/*NPC*/
 ada_orang_di(bos,ruang_kapolri).
-ada_orang_di(copet,markas_copet_pasar).
 ada_orang_di(pegawai,kantor_pasar).
 ada_orang_di(pedagang,pasar).
 ada_orang_di(zookeeper,kebun_binatang).
 ada_orang_di(ibu_warteg,warteg).
 
+
+ada_orang_di(copet,markas_copet_pasar).
+
+/*Barang*/
 ada_di([],di_tas).
 ada_di([rifle,bazoka],gudang_senjata).
 ada_di([nasi_padang,tahu_sumedang],warteg).
 ada_di([borgol,samurai,pisau],rumah).
 
+/*MISI*/
 misi([tangkap_copet,lawan_teroris,lawan_mafia,bunuh_hitler,jinakkan_beruang,lawan_preman],belom).
 misi([],complete).
 
@@ -287,12 +297,14 @@ take(Item) :-
 		asserta(ada_di(Lo,di_tas)),
 		delete(L,Item,Lb),
 		(Lb = [] -> retract(ada_di(L,Tempat)) ;
-			retract(ada_di(L,Tempat)),
+			retract(ada_di(L,Tempat)),	
 			asserta(ada_di(Lb,Tempat)) 
 		),!; write(Item),write(' tidak ada di '),write(Tempat),nl,!),
 	open_bag.
 
 look :-
+	player(Nama),
+	write(Nama),nl,
 	aku_di(Tempat),
 	item_in(Tempat),
 	open_bag,!.
@@ -657,3 +669,89 @@ isvalid(X) :-
 
 isvalid(_) :-
 	write('Command salah.'),nl.
+
+
+/*save barang sudah*/
+save_barang(Nama) :-
+	atom_concat(Nama,'barang.txt',Nfile),
+	open(Nfile, write, File),
+	findall((Tempat,Lb), ada_di(Lb,Tempat), List),
+	savebarangkefile(List,File),
+	close(File).
+
+savebarangkefile([], Nf) :-
+	write(Nf,'Selesai. '),
+	write(Nf, '[].').
+
+savebarangkefile([(Tempat,Lb)|B], Nf) :-
+	write(Nf, Tempat),write(Nf, '. '),nl(Nf),
+	write(Nf, Lb),write(Nf, '. '),nl(Nf),
+	savebarangkefile(B,Nf).
+
+
+/*Load barang sudah*/
+load_barang (Nama):-
+	atom_concat(Nama,'barang.txt',Nfile),
+	open(Nfile,read,File),
+	retractall(ada_di(_,_)),
+	read(File, Tempat),
+	read(File, Lb),
+	loadbarangdarifile(Tempat,Lb,File),
+	close(File),	
+
+	nl.
+
+loadbarangdarifile('Selesai',[],Nf ) :-
+	!.
+
+loadbarangdarifile(Tempat,List,Nf):-
+	asserta(ada_di(List,Tempat)),
+	read(Nf, Tempat1),
+	read(Nf, List1),
+	loadbarangdarifile(Tempat1,List1,Nf).
+
+/*save player stat*/
+save_player :-
+	player(Nama),
+	aku_di(Tempat),
+	uang(Rupiah),
+	energi(Eng),
+	atom_concat(Nama,'barang.txt',Nfile),
+	open(Nfile,write,File),
+	write(File, Nama),write(File, '.'),nl(File),
+	write(File, Tempat),write(File, '.'),nl(File),
+	write(File, Rupiah),write(File, '.'),nl(File),
+	write(File, Eng),write(File, '.'),
+	close(File).
+
+/*load player stat*/
+load_player (Name):-
+	retractall(player(_)),
+	retractall(uang(_)),
+	retractall(energi(_)),
+	retractall(aku_di(_)),
+	atom_concat(Name,'barang.txt',Nfile),
+	open(Nfile,read,File),
+	read(File, Nama),
+	read(File, Tempat),
+	read(File, Rupiah),
+	read(File, Eng),
+	asserta(player(Nama)),
+	asserta(aku_di(Tempat)),
+	asserta(uang(Rupiah)),
+	asserta(energi(Eng)),
+	close(File).
+
+save_misi(Nama):-
+	misi(Mb,belom),
+	misi(Ms,complete),
+	open()
+
+
+
+ganti_nama:-
+	read(Nama),
+	player(User),
+	retract(player(User)),
+	asserta(player(Nama)).
+	
