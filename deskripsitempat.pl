@@ -1,7 +1,7 @@
 /*Deskripsi dari setiap tempat, tergantung dari kondisinya */
 
 deskripsi(ruang_kenaikan_pangkat) :-
-	at(lencana, in_hand),
+	ada_di(X, di_tas), memberchk(lencana,X),
 	write('Hari ini adalah harimu! Seluruh negara menjadi saksi atas kehebatanmu.'), nl,
 	write('Lencana Kapolri telah tertempel di bahumu. Tetapi, ini adalah awal yang baru.'), nl,
 	write('Musuh akan terus ada, dan semua itu menjadi tantanganmu.'), nl,
@@ -76,14 +76,11 @@ deskripsi(markas_copet_pasar) :-
 	write('Tempat ini dulunya merupakan tempat persembunyian para copet pasar. Tapi sekarang copet tersebut telah'), nl,
 	write('tiada dan tempat ini menjadi tidak terpakai. Di utara ada Jalan In Aja, di sebelah barat ada Jalan Kesepian,'),nl,
 	write('dan di sebelah selatan ada Pasar.'), nl.
-	
+
 deskripsi(markas_copet_pasar) :-
 	write('Oh bukan suatu hal baik. Kau mengejar copet tersebut hingga ke tempat persembunyiannya! Sekarang'), nl,
 	write('kau berhadapan dengan 2 orang copet dan mereka menggunakan senjata tajam! Ini berbahaya, lawan mereka'), nl,
 	write('sekarang dan tangkap mereka!'), nl.
-
-deskripsi(warteg) :-
-	write('Isi energi mu dengan menyantap berbagai makanan dan minuman disini. Di sebelah barat ada Pasar'), nl.
 
 deskripsi(kolong_jembatan) :-
 	tertangkap(teroris), !,
@@ -178,7 +175,7 @@ deskripsi(rumah) :-
 	write('dapatkan. Di sebelah utara ada Gang Depan.'), nl.
 
 deskripsi(kuburan_hitler) :-
-	mati(hitler), !,
+	mati(zombie_hitler), !,
 	write('Wuh, sekarang Hitler sudah tenang di alam Akhirat sana. Tidak ada yang perlu'), nl,
 	write('ditakutkan lagi. Tempat ini sudah berubah menjadi sebuah taman yang indah. Di'), nl,
 	write('sebelah utara ada Rumah.'), nl.
@@ -232,4 +229,3 @@ deskripsi(markas_mafia) :-
 	write('sayangnya kamu tidak punya identitas selain identitasmu sebagi polisi, dan mereka'), nl,
 	write('sudah mengetahuinya! Mereka langsung mengepungmu! Sigaplah! Gunakan senjatamu atau'), nl,
 	write('kau akan mati di tangan mereka! Tidak ada waktu lagi!'), nl.
-
