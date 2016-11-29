@@ -1,7 +1,7 @@
 /*Deskripsi dari setiap tempat, tergantung dari kondisinya */
 
 deskripsi(ruang_kenaikan_pangkat) :-
-	at(lencana, in_hand),
+	ada_di(X, di_tas), memberchk(lencana,X),
 	write('Hari ini adalah harimu! Seluruh negara menjadi saksi atas kehebatanmu.'), nl,
 	write('Lencana Kapolri telah tertempel di bahumu. Tetapi, ini adalah awal yang baru.'), nl,
 	write('Musuh akan terus ada, dan semua itu menjadi tantanganmu.'), nl,
@@ -76,7 +76,7 @@ deskripsi(markas_copet_pasar) :-
 	write('Tempat ini dulunya merupakan tempat persembunyian para copet pasar. Tapi sekarang copet tersebut telah'), nl,
 	write('tiada dan tempat ini menjadi tidak terpakai. Di utara ada Jalan In Aja, di sebelah barat ada Jalan Kesepian,'),nl,
 	write('dan di sebelah selatan ada Pasar.'), nl.
-	
+
 deskripsi(markas_copet_pasar) :-
 	write('Oh bukan suatu hal baik. Kau mengejar copet tersebut hingga ke tempat persembunyiannya! Sekarang'), nl,
 	write('kau berhadapan dengan 2 orang copet dan mereka menggunakan senjata tajam! Ini berbahaya, lawan mereka'), nl,
