@@ -1,0 +1,6 @@
+[copet].
+[teroris].
+[mafia].
+[preman].
+[zombie_hitler].
+[beruang].

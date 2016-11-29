@@ -1,0 +1,7 @@
+gudang_senjata. 
+[rifle,bazoka]. 
+di_tas. 
+[samurai]. 
+rumah. 
+[borgol,pisau]. 
+Selesai. [].
