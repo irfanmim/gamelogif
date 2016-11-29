@@ -70,6 +70,18 @@ deskripsi(pasar) :-
 	write('di pasar menjadi tidak terkendali! Kamu melihat seorang pencopet sedang berlari setelah mengambil tas'), nl,
 	write('dari perempuan yang berteriak tadi ke arah utara! Tunggu apa lagi?! Cepat kejar dia!'), nl.
 
+
+deskripsi(markas_copet_pasar) :-
+	tertangkap(copet), !,
+	write('Tempat ini dulunya merupakan tempat persembunyian para copet pasar. Tapi sekarang copet tersebut telah'), nl,
+	write('tiada dan tempat ini menjadi tidak terpakai. Di utara ada Jalan In Aja, di sebelah barat ada Jalan Kesepian,'),nl,
+	write('dan di sebelah selatan ada Pasar.'), nl.
+	
+deskripsi(markas_copet_pasar) :-
+	write('Oh bukan suatu hal baik. Kau mengejar copet tersebut hingga ke tempat persembunyiannya! Sekarang'), nl,
+	write('kau berhadapan dengan 2 orang copet dan mereka menggunakan senjata tajam! Ini berbahaya, lawan mereka'), nl,
+	write('sekarang dan tangkap mereka!'), nl.
+
 deskripsi(warteg) :-
 	write('Isi energi mu dengan menyantap berbagai makanan dan minuman disini. Di sebelah barat ada Pasar'), nl.
 
