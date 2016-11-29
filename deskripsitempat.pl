@@ -82,9 +82,6 @@ deskripsi(markas_copet_pasar) :-
 	write('kau berhadapan dengan 2 orang copet dan mereka menggunakan senjata tajam! Ini berbahaya, lawan mereka'), nl,
 	write('sekarang dan tangkap mereka!'), nl.
 
-deskripsi(warteg) :-
-	write('Isi energi mu dengan menyantap berbagai makanan dan minuman disini. Di sebelah barat ada Pasar'), nl.
-
 deskripsi(kolong_jembatan) :-
 	tertangkap(teroris), !,
 	write('Sudah tak ada kehidupan disini sejak komplotan teroris tertangkap.'), nl,
@@ -178,7 +175,7 @@ deskripsi(rumah) :-
 	write('dapatkan. Di sebelah utara ada Gang Depan.'), nl.
 
 deskripsi(kuburan_hitler) :-
-	mati(hitler), !,
+	mati(zombie_hitler), !,
 	write('Wuh, sekarang Hitler sudah tenang di alam Akhirat sana. Tidak ada yang perlu'), nl,
 	write('ditakutkan lagi. Tempat ini sudah berubah menjadi sebuah taman yang indah. Di'), nl,
 	write('sebelah utara ada Rumah.'), nl.
@@ -232,4 +229,3 @@ deskripsi(markas_mafia) :-
 	write('sayangnya kamu tidak punya identitas selain identitasmu sebagi polisi, dan mereka'), nl,
 	write('sudah mengetahuinya! Mereka langsung mengepungmu! Sigaplah! Gunakan senjatamu atau'), nl,
 	write('kau akan mati di tangan mereka! Tidak ada waktu lagi!'), nl.
-
