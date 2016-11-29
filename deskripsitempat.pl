@@ -1,6 +1,14 @@
 <<<<<<< HEAD
 /*Deskripsi dari setiap tempat, tergantung dari kondisinya */
 
+/*MULAI*/
+	write('Selamat datang di Kota Tubagus! Kota yang penuh dengan keceriaan dan'), nl,
+	write('kebahagiaan! Kamu adalah seorang polisi yang mengabdi pada masyarakat'), nl,
+	write('Tubagus. Tugasmu ialah memberantas kejahatan dan melayani masyarakat.'), nl,
+	write('Kamu memiliki cita-cita untuk menjadi seorang Kapolri yang hebat. Untuk'), nl,
+	write('itu kamu perlu untuk meningkatkan reputasimu dengan menjalankan tugas-tugas'), nl,
+	write('dari Bos Kapolri saat ini. Berjuanglah untuk cita-citamu!'), nl.
+
 deskripsi(ruang_kenaikan_pangkat) :-
 	ada_di(X, di_tas), memberchk(lencana,X),
 	write('Hari ini adalah harimu! Seluruh negara menjadi saksi atas kehebatanmu.'), nl,
