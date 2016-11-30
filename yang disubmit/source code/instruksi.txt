@@ -1,0 +1,23 @@
+'Komando (command) yang tersedia: [Menggunakan command standard prolog syntax]\n'.
+'start.		    ==> Untuk memulai permainan.'.
+'instruction 	    ==> Untuk menampilkan command yang dapat dipakai.'.
+'n. s. e. w.        ==> Untuk pergi ke suatu tempat dengan petunjuk arah.'.
+'take(Object).      ==> Untuk mengambil benda.'.
+'drop(Object).      ==> Untuk meletakkan benda.'.
+'use(Object).       ==> Untuk menggunakan benda.'.
+'unuse(Object).     ==> Untuk berhenti menggunakan benda lalu menaruh lagi di tas.'.
+'talk(Object/NPC).  ==> Untuk berbicara dengan NPC.'.
+'stat.              ==> Untuk melihat atribut atau benda yang sedang dibawa.'.
+'makan.             ==> Untuk memakan item untuk menambah energi.'.
+'misiku.            ==> Untuk mengetahui misi yang sedang dijalani.'.
+'look.              ==> Untuk melihat sekelilingmu.'.
+'tangkap.           ==> Untuk menangkap object.'.
+'beli.              ==> Untuk membeli sebuah barang.'.
+'lawan.              ==> Untuk melawan objek.'.
+'instruction.       ==> Untuk melihat pesan instruksi ini lagi.'.
+'save(Filename).    ==> Untuk menyimpan permain terakhir.'.
+'load(Filename).    ==> Untuk meload data hasil dari permainan yang disimpan.'.
+'quit.              ==> Untuk menyelesaikan game dan keluar.\n'.
+'back.              ==> Untuk kembali ke main menu.'.
+'(^o^)9 jangan lupa menggunakan huruf kecil di awal yaa!!!\n'.
+'>>> KETIKKAN "back." untuk kembali <<<'.
